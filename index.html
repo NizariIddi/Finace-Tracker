@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Finance Tracker Pro</title>
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="icon" type="image/png" sizes="512x512" href="icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-container">
+  <header>
+    <h1>💎 Finance Pro</h1>
+    <p>Master your financial future</p>
+  </header>
+
+  <button id="dark-mode-toggle">☀️</button>
+
+  <main>
+    <div class="content-container">
+      <!-- Home Tab Content -->
+      <section class="home active-tab" id="home">
+        <div class="balance-card">
+          <p>Current Balance</p>
+          <h2 id="balance">Tsh. 0.00</h2>
+        </div>
+        <div class="stats">
+            <div class="stat stat-income">
+                  <h3><i class="fas fa-coins"></i> Income</h3>
+                  <p id="total-income">Tsh. 0.00</p>
+                  <div class="bar-container">
+                      <div class="bar" style="width: 0%;"></div>
+                  </div>
+              </div>
+
+              <div class="stat stat-expense">
+                  <h3><i class="fas fa-wallet"></i> Expenses</h3>
+                  <p id="total-expense">Tsh. 0.00</p>
+                  <div class="bar-container">
+                      <div class="bar" style="width: 0%;"></div>
+                  </div>
+              </div>
+
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+          <div class="quick-action" data-action="add-income">
+            <div class="icon">💰</div>
+            <h4>Add Income</h4>
+            <p>Quick income entry</p>
+          </div>
+          <div class="quick-action" data-action="add-expense">
+            <div class="icon">💸</div>
+            <h4>Add Expense</h4>
+            <p>Track spending</p>
+          </div>
+          <div class="quick-action" data-action="view-reports">
+            <div class="icon">📊</div>
+            <h4>View Reports</h4>
+            <p>Analyze trends</p>
+          </div>
+          <div class="quick-action" data-action="set-budget">
+            <div class="icon">🎯</div>
+            <h4>Set Budget</h4>
+            <p>Financial goals</p>
+          </div>
+        </div>
+
+        <!-- Budget Goals -->
+        <div class="budget-goals">
+          <h3 style="text-align: center; margin-bottom: 1rem; font-size: 1rem; color: var(--text-primary);">Monthly Budget Goals</h3>
+          <div id="budget-list"></div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="recent-activity">
+          <h3>Recent Activity</h3>
+          <div class="activity-list" id="recent-activity-list">
+            <!-- Recent transactions will be populated here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Transactions Tab -->
+      <section class="transactions" id="transactions">
+        <h2>Transaction History</h2>
+        <div class="search-container">
+          <input type="text" id="search" placeholder="Search transactions...">
+        </div>
+        
+        <!-- Advanced Filters -->
+        <div class="filter-panel">
+          <h3 class="filter-title"><i class="fas fa-filter"></i> Filters</h3>
+          
+          <div class="filter-row">
+            <select id="filter-type">
+              <option value="">All Types</option>
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+            </select>
+            <select id="filter-category">
+              <option value="">All Categories</option>
+              <option value="Salary">Salary</option>
+              <option value="Food">Food</option>
+              <option value="Rent">Rent</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Transportation">Transportation</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          
+          <div class="filter-row">
+            <input type="date" id="filter-date-from" placeholder="From date">
+            <input type="date" id="filter-date-to" placeholder="To date">
+          </div>
+          
+          <button class="filter-btn"><i class="fas fa-search"></i> Apply Filters</button>
+        </div>
+        <div id="transactions-list"></div>
+        <button id="export-btn">📤 Export Data</button>
+      </section>
+
+      <!-- Add Transaction Tab -->
+      <section class="add-transaction" id="add">
+        <h2>Add Transaction</h2>
+        <form id="transaction-form">
+          <input type="text" id="description" placeholder="Transaction description" required>
+          <input type="number" id="amount" placeholder="0.00" step="0.01" required>
+          <select id="type" required>
+            <option value="income">💰 Income</option>
+            <option value="expense">💸 Expense</option>
+          </select>
+          <select id="category" required>
+            <option value="Salary">💼 Salary</option>
+            <option value="Food">🍔 Food</option>
+            <option value="Rent">🏠 Rent</option>
+            <option value="Shopping">🛍️ Shopping</option>
+            <option value="Transportation">🚗 Transportation</option>
+            <option value="Healthcare">🏥 Healthcare</option>
+            <option value="Entertainment">🎬 Entertainment</option>
+            <option value="Other">📝 Other</option>
+          </select>
+          <input type="date" id="date" required>
+          <button type="submit">➕ Add Transaction</button>
+        </form>
+
+        <!-- Quick Add Buttons -->
+        <div style="margin-top: 2rem;">
+          <h3 style="text-align: center; margin-bottom: 1rem; font-size: 1rem;">Quick Add</h3>
+          <div class="quick-actions" style="margin: 0;">
+            <div class="quick-action" data-quick-add="coffee">
+              <div class="icon">☕</div>
+              <h4>Coffee</h4>
+              <p>Tsh. 5.00</p>
+            </div>
+            <div class="quick-action" data-quick-add="lunch">
+              <div class="icon">🍕</div>
+              <h4>Lunch</h4>
+              <p>Tsh. 15.00</p>
+            </div>
+            <div class="quick-action" data-quick-add="gas">
+              <div class="icon">⛽</div>
+              <h4>Gas</h4>
+              <p>Tsh. 50.00</p>
+            </div>
+            <div class="quick-action" data-quick-add="groceries">
+              <div class="icon">🛒</div>
+              <h4>Groceries</h4>
+              <p>Tsh. 100.00</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reports Tab -->
+      <section class="reports" id="reports">
+        <h2>Financial Overview</h2>
+        
+        <!-- Time Period Selector -->
+        <div style="text-align: center; margin-bottom: 1rem;">
+          <select id="report-period" style="padding: 0.5rem; border-radius: var(--border-radius-sm); background: var(--card-bg); color: var(--text-primary); border: 1px solid var(--border-color);">
+            <option value="7">Last 7 days</option>
+            <option value="30" selected>Last 30 days</option>
+            <option value="90">Last 3 months</option>
+            <option value="365">Last year</option>
+          </select>
+        </div>
+
+        <div class="chart-container">
+          <canvas id="chart"></canvas>
+        </div>
+
+        <!-- Advanced Statistics -->
+        <div style="margin-top: 2rem;">
+          <div class="stats" style="grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); margin-bottom: 1rem;">
+            <div style="background: var(--card-bg); padding: 1rem; border-radius: var(--border-radius-md); text-align: center; border: 1px solid var(--border-color);">
+              <h4 style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">AVG DAILY</h4>
+              <p id="avg-daily" style="font-weight: 700; color: var(--text-primary);">$0.00</p>
+            </div>
+            <div style="background: var(--card-bg); padding: 1rem; border-radius: var(--border-radius-md); text-align: center; border: 1px solid var(--border-color);">
+              <h4 style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">LARGEST</h4>
+              <p id="largest-expense" style="font-weight: 700; color: var(--danger-red);">$0.00</p>
+            </div>
+            <div style="background: var(--card-bg); padding: 1rem; border-radius: var(--border-radius-md); text-align: center; border: 1px solid var(--border-color);">
+              <h4 style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">SAVINGS RATE</h4>
+              <p id="savings-rate" style="font-weight: 700; color: var(--success-green);">0%</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <nav>
+    <button data-tab="home" class="active">
+      <div class="icon">🏠</div>
+      <span>Home</span>
+    </button>
+    <button data-tab="transactions">
+      <div class="icon">📊</div>
+      <span>History</span>
+    </button>
+    <button data-tab="add">
+      <div class="icon">➕</div>
+      <span>Add</span>
+    </button>
+    <button data-tab="reports">
+      <div class="icon">📈</div>
+      <span>Reports</span>
+    </button>
+  </nav>
+</div>
+<script src="service.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script src="script.js">
+</script>
+</body>
+</html>
